@@ -40,7 +40,7 @@
     "warning": "^2.0.0"
   },
   "peerDependencies": {
-    "leaflet": "^0.7.0",
+    "leaflet": "1.0.0-rc.1",
     "react": "^0.14.0 || ^15.0.0",
     "react-dom": "^0.14.0 || ^15.0.0"
   },
