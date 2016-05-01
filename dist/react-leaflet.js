@@ -6720,7 +6720,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'removeLayer',
 	    value: function removeLayer(layer) {
-	      this.leafletElement.removeLayer(layer);
 	      this.props.map.removeLayer(layer);
 	    }
 	  }, {
@@ -7070,6 +7069,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 	      if (this.props.opacity !== prevProps.opacity) {
 	        this.leafletElement.setOpacity(this.props.opacity);
+	      }
+	      if (this.props.draggable !== prevProps.draggable) {
+	        if (this.props.draggable) {
+	          this.leafletElement.dragging.enable();
+	        } else {
+	          this.leafletElement.dragging.disable();
+	        }
 	      }
 	    }
 	  }, {
