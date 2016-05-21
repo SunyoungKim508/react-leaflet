@@ -9,10 +9,10 @@ export default class MultiPolyline extends Path {
     polylines: PropTypes.arrayOf(latlngListType).isRequired,
   };
 
-  componentWillMount() {
-    super.componentWillMount();
-    const {map: _map, layerContainer: _lc, polylines, ...props} = this.props;
-    this.leafletElement = multiPolyline(polylines, props);
+  constructor(props) {
+    super(props);
+    const { map: _map, layerContainer: _lc, polylines, ...options } = props;
+    this.leafletElement = multiPolyline(polylines, options);
   }
 
   componentDidUpdate(prevProps) {

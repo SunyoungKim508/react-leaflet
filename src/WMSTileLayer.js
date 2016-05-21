@@ -8,9 +8,9 @@ export default class WMSTileLayer extends BaseTileLayer {
     url: PropTypes.string.isRequired,
   };
 
-  componentWillMount() {
-    super.componentWillMount();
-    const { map: _map, layerContainer: _lc, url, ...props } = this.props;
-    this.leafletElement = tileLayer.wms(url, props);
+  constructor(props) {
+    super(props);
+    const { map: _map, layerContainer: _lc, url, ...options } = props;
+    this.leafletElement = tileLayer.wms(url, options);
   }
 }

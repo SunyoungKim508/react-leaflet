@@ -9,10 +9,10 @@ export default class MultiPolygon extends Path {
     polygons: PropTypes.arrayOf(latlngListType).isRequired,
   };
 
-  componentWillMount() {
-    super.componentWillMount();
-    const { map: _map, layerContainer: _lc, polygons, ...props } = this.props;
-    this.leafletElement = multiPolygon(polygons, props);
+  constructor(props) {
+    super(props);
+    const { map: _map, layerContainer: _lc, polygons, ...options } = props;
+    this.leafletElement = multiPolygon(polygons, options);
   }
 
   componentDidUpdate(prevProps) {

@@ -12,10 +12,10 @@ export default class ImageOverlay extends MapLayer {
     url: PropTypes.string.isRequired,
   };
 
-  componentWillMount() {
-    super.componentWillMount();
-    const { bounds, map: _map, layerContainer: _lc, url, ...props } = this.props;
-    this.leafletElement = imageOverlay(url, bounds, props);
+  constructor(props) {
+    super(props);
+    const { bounds, map: _map, layerContainer: _lc, url, ...options } = overlayPropsprops;
+    this.leafletElement = imageOverlay(url, bounds, options);
   }
 
   componentDidUpdate(prevProps) {

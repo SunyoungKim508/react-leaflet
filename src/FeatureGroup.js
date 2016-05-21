@@ -1,10 +1,24 @@
+import { PropTypes } from 'react';
 import { featureGroup } from 'leaflet';
 
 import Path from './Path';
 
 export default class FeatureGroup extends Path {
-  componentWillMount() {
+  static childContextTypes = {
+    layerContainer: PropTypes.object,
+    popupContainer: PropTypes.object,
+  };
+
+  constructor(props) {
+    super(props);
     this.leafletElement = featureGroup();
+  }
+
+  getChildContext() {
+    return {
+      layerContainer: this.leafletElement,
+      popupContainer: this.leafletElement,
+    };
   }
 
   componentDidMount() {
@@ -17,9 +31,6 @@ export default class FeatureGroup extends Path {
   }
 
   render() {
-    return this.renderChildrenWithProps({
-      layerContainer: this.leafletElement,
-      popupContainer: this.leafletElement,
-    });
+    return this.renderChildren();
   }
 }

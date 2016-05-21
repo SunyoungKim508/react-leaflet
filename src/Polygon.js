@@ -12,10 +12,10 @@ export default class Polygon extends Path {
     ]).isRequired,
   };
 
-  componentWillMount() {
-    super.componentWillMount();
-    const { map: _map, layerContainer: _lc, positions, ...props } = this.props;
-    this.leafletElement = polygon(positions, props);
+  constructor(props) {
+    super(props);
+    const { map: _map, layerContainer: _lc, positions, ...options } = props;
+    this.leafletElement = polygon(positions, options);
   }
 
   componentDidUpdate(prevProps) {

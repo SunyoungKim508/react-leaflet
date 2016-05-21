@@ -32,20 +32,35 @@ export default class Map extends MapComponent {
     animate: false,
   };
 
+  static childContextTypes = {
+    layerContainer: PropTypes.object,
+    map: PropTypes.object,
+  };
+
   constructor(props) {
     super(props);
+
+    const mapProps = omit(props, ['children', 'className', 'id', 'style']);
+    const id = props.id || uniqueId('map')
+
+    this.leafletElement = Leaflet.map(id, mapProps);
     this.state = {
-      id: props.id || uniqueId('map'),
+      id,
+    };
+  }
+
+  getChildContext() {
+    return {
+      layerContainer: this.leafletElement,
+      map: this.leafletElement,
     };
   }
 
   componentDidMount() {
-    const props = omit(this.props, ['children', 'className', 'id', 'style']);
-    this.leafletElement = Leaflet.map(this.state.id, props);
     super.componentDidMount();
     this.setState({map: this.leafletElement});
-    if (!isUndefined(props.bounds)) {
-      this.leafletElement.fitBounds(props.bounds, props.boundsOptions);
+    if (!isUndefined(this.props.bounds)) {
+      this.leafletElement.fitBounds(this.props.bounds, this.props.boundsOptions);
     }
   }
 
@@ -88,10 +103,8 @@ export default class Map extends MapComponent {
   }
 
   render() {
-    const map = this.leafletElement;
-    const children = map ? React.Children.map(this.props.children, child => {
-      return child ? React.cloneElement(child, {map, layerContainer: map}) : null;
-    }) : null;
+    const map = this.state.map;
+    const children = map ? this.props.children : null;
 
     return (
       <div

@@ -11,7 +11,8 @@ export default class ZoomControl extends MapControl {
     zoomOutTitle: PropTypes.string,
   };
 
-  componentWillMount() {
-    this.leafletElement = control.zoom(this.props);
+  constructor(props) {
+    super(props);
+    this.leafletElement = control.zoom(props);
   }
 }

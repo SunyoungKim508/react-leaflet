@@ -11,7 +11,8 @@ export default class ZoomControl extends MapControl {
     updateWhenIdle: PropTypes.bool,
   };
 
-  componentWillMount() {
-    this.leafletElement = control.scale(this.props);
+  constructor(props) {
+    super(props);
+    this.leafletElement = control.scale(props);
   }
 }

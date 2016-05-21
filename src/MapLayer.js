@@ -10,31 +10,24 @@ import MapComponent from './MapComponent';
 export default class MapLayer extends MapComponent {
   static propTypes = {
     children: childrenType,
+  };
+
+  static contextTypes = {
     layerContainer: layerContainerType,
     map: PropTypes.instanceOf(Map),
   };
 
   componentDidMount() {
     super.componentDidMount();
-    this.props.layerContainer.addLayer(this.leafletElement);
+    this.context.layerContainer.addLayer(this.leafletElement);
   }
 
   componentWillUnmount() {
     super.componentWillUnmount();
-    this.props.layerContainer.removeLayer(this.leafletElement);
+    this.context.layerContainer.removeLayer(this.leafletElement);
   }
 
-  getClonedChildrenWithProps(extra) {
-    const { children, map, layerContainer } = this.props;
-    const props = assign({map, layerContainer}, extra);
-
-    return Children.map(children, child => {
-      return child ? cloneElement(child, props) : null;
-    });
-  }
-
-  renderChildrenWithProps(props) {
-    const children = this.getClonedChildrenWithProps(props);
-    return <div style={{display: 'none'}}>{children}</div>;
+  renderChildren() {
+    return <div style={{display: 'none'}}>{this.props.children}</div>;
   }
 }

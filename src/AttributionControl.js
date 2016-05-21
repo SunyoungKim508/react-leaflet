@@ -8,7 +8,8 @@ export default class AttributionControl extends MapControl {
     prefix: PropTypes.string,
   };
 
-  componentWillMount() {
-    this.leafletElement = control.attribution(this.props);
+  constructor(props) {
+  	super(props);
+    this.leafletElement = control.attribution(props);
   }
 }

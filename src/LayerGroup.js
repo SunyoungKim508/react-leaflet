@@ -1,16 +1,25 @@
+import { PropTypes } from 'react';
 import { layerGroup } from 'leaflet';
 
 import MapLayer from './MapLayer';
 
 export default class LayerGroup extends MapLayer {
-  componentWillMount() {
-    super.componentWillMount();
+	static childContextTypes = {
+    layerContainer: PropTypes.object,
+  };
+
+  constructor(props) {
+  	super(props);
     this.leafletElement = layerGroup();
   }
 
-  render() {
-    return this.renderChildrenWithProps({
+  getChildContext() {
+    return {
       layerContainer: this.leafletElement,
-    });
+    };
+  }
+
+  render() {
+    return this.props.children;
   }
 }

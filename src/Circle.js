@@ -10,10 +10,10 @@ export default class Circle extends Path {
     radius: PropTypes.number.isRequired,
   };
 
-  componentWillMount() {
-    super.componentWillMount();
-    const { center, map: _map, layerContainer: _lc, radius, ...props } = this.props;
-    this.leafletElement = circle(center, radius, props);
+  constructor(props) {
+    super(props);
+    const { center, map: _map, layerContainer: _lc, radius, ...options } = props;
+    this.leafletElement = circle(center, radius, options);
   }
 
   componentDidUpdate(prevProps) {

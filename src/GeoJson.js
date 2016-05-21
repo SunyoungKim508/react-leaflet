@@ -8,10 +8,10 @@ export default class GeoJson extends Path {
     data: PropTypes.object.isRequired,
   };
 
-  componentWillMount() {
-    super.componentWillMount();
-    const { data, map: _map, layerContainer: _lc, ...props } = this.props;
-    this.leafletElement = geoJson(data, props);
+  constructor(props) {
+    super(props);
+    const { data, map: _map, layerContainer: _lc, ...options } = props;
+    this.leafletElement = geoJson(data, options);
   }
 
   componentDidUpdate(prevProps) {

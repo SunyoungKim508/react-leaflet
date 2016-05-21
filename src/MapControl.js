@@ -4,12 +4,16 @@ import controlPositionType from './types/controlPosition';
 
 export default class MapControl extends Component {
   static propTypes = {
-    map: PropTypes.object,
+    // map: PropTypes.object,
     position: controlPositionType,
   };
 
+  static contextTypes = {
+    map: PropTypes.object,
+  };
+
   componentDidMount() {
-    this.leafletElement.addTo(this.props.map);
+    this.leafletElement.addTo(this.context.map);
   }
 
   componentDidUpdate(prevProps) {
@@ -19,7 +23,7 @@ export default class MapControl extends Component {
   }
 
   componentWillUnmount() {
-    this.leafletElement.removeFrom(this.props.map);
+    this.leafletElement.removeFrom(this.context.map);
   }
 
   getLeafletElement() {

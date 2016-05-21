@@ -12,10 +12,20 @@ export default class Marker extends MapLayer {
     zIndexOffset: PropTypes.number,
   };
 
-  componentWillMount() {
-    super.componentWillMount();
-    const { map: _map, layerContainer: _lc, position, ...props } = this.props;
-    this.leafletElement = marker(position, props);
+  static childContextTypes = {
+    popupContainer: PropTypes.object,
+  };
+
+  constructor(props) {
+    super(props);
+    const { map: _map, layerContainer: _lc, position, ...markerProps } = props;
+    this.leafletElement = marker(position, markerProps);
+  }
+
+  getChildContext() {
+    return {
+      popupContainer: this.leafletElement,
+    };
   }
 
   componentDidUpdate(prevProps) {
@@ -42,8 +52,6 @@ export default class Marker extends MapLayer {
   }
 
   render() {
-    return this.renderChildrenWithProps({
-      popupContainer: this.leafletElement,
-    });
+    return this.renderChildren();
   }
 }
